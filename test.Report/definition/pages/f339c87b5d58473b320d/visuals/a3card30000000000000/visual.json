@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "a3card30000000000000",
+  "position": {
+    "x": 1446,
+    "y": 100,
+    "z": 5,
+    "height": 140,
+    "width": 450,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "financials"
+                    }
+                  },
+                  "Property": "Avg Dividend Yield %"
+                }
+              },
+              "queryRef": "financials.Avg Dividend Yield %",
+              "nativeQueryRef": "Avg Dividend Yield %"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "2091c0dde806019451c1",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "financials"
+              }
+            },
+            "Property": "Avg Dividend Yield %"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

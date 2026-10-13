@@ -1,0 +1,165 @@
+table financials
+	lineageTag: 7a454d14-3d00-43fb-8c83-0e8e30d06368
+
+	measure Companies = DISTINCTCOUNT(financials[Symbol])
+		formatString: #,0
+		lineageTag: 3f1c2a10-5b7e-4d21-9a6c-1e2f3a4b5c01
+
+	measure 'Total Market Cap' = SUM(financials[Market Cap])
+		formatString: $#,0
+		lineageTag: 3f1c2a10-5b7e-4d21-9a6c-1e2f3a4b5c02
+
+	measure 'Total EBITDA' = SUM(financials[EBITDA])
+		formatString: $#,0
+		lineageTag: 3f1c2a10-5b7e-4d21-9a6c-1e2f3a4b5c03
+
+	measure 'Avg P/E' = AVERAGE(financials[Price/Earnings])
+		formatString: 0.0
+		lineageTag: 3f1c2a10-5b7e-4d21-9a6c-1e2f3a4b5c04
+
+	measure 'Avg Dividend Yield %' = AVERAGE(financials[Dividend Yield])
+		formatString: 0.00
+		lineageTag: 3f1c2a10-5b7e-4d21-9a6c-1e2f3a4b5c05
+
+	column Symbol
+		dataType: string
+		lineageTag: d9a6c5df-e150-4034-b069-f1e41eff2a10
+		summarizeBy: none
+		sourceColumn: Symbol
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		lineageTag: 929a450e-174c-48ea-95aa-64df7fea5a3c
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sector
+		dataType: string
+		lineageTag: 43b54288-58ef-4d32-a401-53bda3daa2d5
+		summarizeBy: none
+		sourceColumn: Sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price
+		dataType: double
+		lineageTag: 116c37f1-16e3-47c3-9739-9ee0e6135287
+		summarizeBy: sum
+		sourceColumn: Price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Price/Earnings
+		dataType: double
+		lineageTag: b7fce8d7-2f0e-4bda-9396-8f3714926713
+		summarizeBy: sum
+		sourceColumn: Price/Earnings
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Dividend Yield'
+		dataType: double
+		lineageTag: b7356260-4002-45d1-84f5-816083109f81
+		summarizeBy: sum
+		sourceColumn: Dividend Yield
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Earnings/Share
+		dataType: double
+		lineageTag: c40ed6ab-75e1-4541-b17d-adf69d035699
+		summarizeBy: sum
+		sourceColumn: Earnings/Share
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '52 Week Low'
+		dataType: double
+		lineageTag: 46d79d21-6c59-487c-bfca-1b3c182a81c9
+		summarizeBy: sum
+		sourceColumn: 52 Week Low
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '52 Week High'
+		dataType: double
+		lineageTag: 713a5ed7-6207-4d83-8ceb-dff49f761270
+		summarizeBy: sum
+		sourceColumn: 52 Week High
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Market Cap'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8695473d-f7a6-4b8d-88b2-160aaffcb4df
+		summarizeBy: sum
+		sourceColumn: Market Cap
+
+		annotation SummarizationSetBy = Automatic
+
+	column EBITDA
+		dataType: int64
+		formatString: 0
+		lineageTag: ae492c6a-6629-48e6-8a9a-b72e5c385d5f
+		summarizeBy: sum
+		sourceColumn: EBITDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column Price/Sales
+		dataType: double
+		lineageTag: eb8370cd-bd44-45b2-950d-c7fccf72628d
+		summarizeBy: sum
+		sourceColumn: Price/Sales
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Price/Book
+		dataType: double
+		lineageTag: f0c4a731-9cf7-492e-8b6c-b0eebe43202d
+		summarizeBy: sum
+		sourceColumn: Price/Book
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SEC Filings'
+		dataType: string
+		lineageTag: 097d982a-d293-4f34-8cf0-ecdc20471f08
+		summarizeBy: none
+		sourceColumn: SEC Filings
+
+		annotation SummarizationSetBy = Automatic
+
+	partition financials = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\Asus\Downloads\financials.csv"), [Delimiter = ",", Columns = 14, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"Symbol", type text}, {"Name", type text}, {"Sector", type text}, {"Price", type number}, {"Price/Earnings", type number}, {"Dividend Yield", type number}, {"Earnings/Share", type number}, {"52 Week Low", type number}, {"52 Week High", type number}, {"Market Cap", Int64.Type}, {"EBITDA", Int64.Type}, {"Price/Sales", type number}, {"Price/Book", type number}, {"SEC Filings", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

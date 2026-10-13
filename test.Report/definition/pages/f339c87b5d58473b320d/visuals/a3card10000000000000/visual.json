@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "a3card10000000000000",
+  "position": {
+    "x": 498,
+    "y": 100,
+    "z": 3,
+    "height": 140,
+    "width": 450,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "financials"
+                    }
+                  },
+                  "Property": "Total Market Cap"
+                }
+              },
+              "queryRef": "financials.Total Market Cap",
+              "nativeQueryRef": "Total Market Cap"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "625d6014c5dcb4a5d9ef",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "financials"
+              }
+            },
+            "Property": "Total Market Cap"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

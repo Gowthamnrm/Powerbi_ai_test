@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "a3card20000000000000",
+  "position": {
+    "x": 972,
+    "y": 100,
+    "z": 4,
+    "height": 140,
+    "width": 450,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "financials"
+                    }
+                  },
+                  "Property": "Avg P/E"
+                }
+              },
+              "queryRef": "financials.Avg P/E",
+              "nativeQueryRef": "Avg P/E"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4b1960acc24713d0a3ff",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "financials"
+              }
+            },
+            "Property": "Avg P/E"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}
